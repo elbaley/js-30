@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS + CSS Clock</title>
+    <link rel="icon" href="https://fav.farm/✅" />
+  </head>
+
+  <body>
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+    </div>
+
+    <style>
+      html {
+        background: #018ded url(https://unsplash.it/1500/1000?image=881&blur=5);
+        background-size: cover;
+        font-family: "helvetica neue";
+        text-align: center;
+        font-size: 10px;
+      }
+
+      body {
+        margin: 0;
+        font-size: 2rem;
+        display: flex;
+        flex: 1;
+        min-height: 100vh;
+        align-items: center;
+      }
+
+      .clock {
+        width: 30rem;
+        height: 30rem;
+        border: 20px solid white;
+        border-radius: 50%;
+        margin: 50px auto;
+        position: relative;
+        padding: 2rem;
+        box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1), inset 0 0 0 3px #efefef,
+          inset 0 0 10px black, 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .clock-face {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform: translateY(-3px);
+        /* account for the height of the clock hands */
+      }
+
+      .hand {
+        width: 50%;
+        height: 6px;
+        background: black;
+        position: absolute;
+        top: 50%;
+        transform-origin: 100%;
+        transition: transform 0.3s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+      }
+    </style>
+
+    <script>
+      const secondHand = document.querySelector(".second-hand");
+      const minuteHand = document.querySelector(".min-hand");
+      const hourHand = document.querySelector(".hour-hand");
+
+      function updateClock() {
+        const now = new Date();
+
+        const seconds = now.getSeconds();
+        // saniyenin açı değerini saklıyoruz böylece bu değeri dakikaya ekleyerek dakika çubuğunun saniye ile senkronize bir şekilde oynamasını sağlıyoruz
+        // örneğin dakika 30 ve saniye 20 ise dakikaya 20/60 = 0.33 dakika daha ekleyerek doğru açıda olmasını sağlayacağız.
+        const secondRatio = seconds / 60;
+        // saniyenin açısını hesaplarken +90 eklememizin sebebi varsayılan olarak çubukların saat 9 yönünde başlamalırıdır.
+        // +90 ekleyerek saatin 12'den başlamasını sağlıyoruz
+        const secondDegree = secondRatio * 360 + 90;
+
+        // saniyenin 0 olduğunda transition kaynaklı bug için
+        // saniye 0 ise transition süresini 0 yapalım aksi sonrasında tekrar eski haline çevirelim
+        if (seconds === 0) {
+          secondHand.style.transitionDuration = "0s";
+          secondHand.style.transform = `rotate(${secondDegree}deg)`;
+          setTimeout(() => {
+            secondHand.style.transitionDuration = "0.3s";
+          }, 0);
+        } else {
+          secondHand.style.transform = `rotate(${secondDegree}deg)`;
+        }
+
+        const minutes = now.getMinutes();
+        // aynı şekilde dakikanın açı değerini de saklayarak bunu saate ekleyeceğiz böylece saat çubuğu da dakika çubuğuyla senkronize olacak
+        const minuteRatio = (minutes + secondRatio) / 60;
+        const minuteDegree = minuteRatio * 360 + 90;
+
+        minuteHand.style.transform = `rotate(${minuteDegree}deg)`;
+
+        const hours = now.getHours();
+        const hourRatio = (hours + minuteRatio) / 12;
+        const hourDegree = hourRatio * 360 + 90;
+
+        hourHand.style.transform = `rotate(${hourDegree}deg)`;
+      }
+
+      // saatin her saniye güncellenmesi için setInterval ile updateClock fonksiyonumuzu her saniye çalıştıralım
+      setInterval(updateClock, 1000);
+    </script>
+  </body>
+</html>
