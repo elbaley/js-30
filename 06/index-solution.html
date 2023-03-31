@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Type Ahead 👀</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+
+  <body>
+    <form class="search-form">
+      <input type="text" class="search" placeholder="Şehir veya Eyalet" />
+      <ul class="suggestions">
+        <li>Şehir/eyalete göre filtrele</li>
+      </ul>
+    </form>
+    <script>
+      // Verinin bulunduğu url'yi saklar
+      const endpoint = "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json";
+
+      // Şehir ve eyaletleri saklamak için bir dizi oluşturur
+      const cities = [];
+
+      // Fetch API kullanarak veriyi alır ve spread operatörü yardımıyla diziyi günceller.
+      fetch(endpoint)
+        .then((res) => res.json())
+        .then((data) => {
+          cities.push(...data);
+        });
+
+      // Dizideki kelimeleri arar 
+      function findMatches(word, cities) {
+        return cities.filter((place) => {
+          // Aranan kelimenin şehir/eyalet ile eşleşip eşleşmediğini kontrol eder
+          const regex = new RegExp(word, "gi");
+          return place.city.match(regex) || place.state.match(regex);
+        });
+      }
+
+      // Bulunan sonuçları DOM'da görüntüler 
+      function renderMatches() {
+        const matchArray = findMatches(this.value, cities);
+        // Eşleşen kelimeleri sarı bir arka plana sahip 'hl' sınıfına sahip bir span içinde gösterir.
+        const html = matchArray
+          .map((place) => {
+            const regex = new RegExp(this.value, "gi");
+            const cityName = place.city.replace(
+              regex,
+              `<span class="hl">${this.value}</span>`
+            );
+            const stateName = place.state.replace(
+              regex,
+              `<span class="hl">${this.value}</span>`
+            );
+
+            // Intl API sayıların formatlanmasını sağlar. (Örneğin 8405837-> 8,405,837 )
+            return `<li> 
+                <span class="name">${cityName}, ${stateName} </span>
+                <span class="population">${new Intl.NumberFormat().format(
+                  place.population
+                )}</span>
+            </li>`;
+          })
+          .join("");
+        resultsContainer.innerHTML = html;
+        console.log(matchArray);
+      }
+      
+      // HTML'deki gerekli öğeleri seçer
+      const filterInput = document.querySelector(".search");
+      const resultsContainer = document.querySelector(".suggestions");
+
+      // Olay dinleyicilerini ekler
+      filterInput.addEventListener("change", renderMatches);
+      filterInput.addEventListener("keyup", renderMatches);
+    </script>
+  </body>
+</html>
