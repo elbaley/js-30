@@ -11,3 +11,4 @@ In this repository, I am sharing my progress on the [Javascript 30 Challenge](ht
 - [x] Gün 5 - [Flex Gallery](https://elbaley.github.io/js-30/05/index-solution.html)
 - [x] Gün 6 - [Type Ahead](https://elbaley.github.io/js-30/06/index-solution.html)
 - [x] Gün 7 - [Array Cardio Day 2](https://elbaley.github.io/js-30/07/index-solution.html)
+- [x] Gün 8 - [HTML5 Canvas](https://elbaley.github.io/js-30/08/index-solution.html)

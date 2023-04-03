@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+  <link rel="icon" href="https://fav.farm/✅" />
+</head>
+<body>
+<!-- Canvas elementi oluşturuluyor -->
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+// canvas elementini seçer
+const canvas = document.querySelector('#draw');
+// getContext metodu  çizim alanı elde eder
+const ctx = canvas.getContext('2d');
+// canvas'ın genişlik/ yüksekliğini pencereanin genişlik yüksekliği kadar yapar
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+// çizgi stilini (renk, uç, kalınlık) ayarlar
+ctx.strokeStyle = '#BADA55';
+ctx.lineJoin = 'round';
+ctx.lineCap = 'round';
+ctx.lineWidth = 100;
+
+// fırça hareketlerini takip etmek için kullanılan değişkenleri oluşturur
+let isDrawing = false;
+let lastX = 0;
+let lastY = 0;
+let hue = 0;
+let direction = true;
+
+function draw(e) {
+  if (!isDrawing) return; // fareye tıklanmadıysa çizim yapmayı durdurur 
+  // çizginin rengini belirler
+  ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+  ctx.beginPath();
+  // çizgi başlangıç noktası
+  ctx.moveTo(lastX, lastY);
+  // çizgi bitiş noktası 
+  ctx.lineTo(e.offsetX, e.offsetY);
+  ctx.stroke();
+  // çizginin son x,y bilgisi günceller böylece çizmeye devam edildiğinde kalınan yerden devam eder
+  [lastX, lastY] = [e.offsetX, e.offsetY];
+
+  // hue değeri arttırarak her fırça vuruşunun farklı bir renk olmasını sağlar 
+  hue++;
+
+  if (hue >= 360) {
+    hue = 0;
+  }
+
+  // direction değişkeni kullanarak çizgi kalınlığının 1 - 100 aralığında olmasını sağlar
+  if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+    direction = !direction;
+  }
+
+  // çizgi kalınlığını arttırır/ azaltır
+  if(direction) {
+    ctx.lineWidth++;
+  } else {
+    ctx.lineWidth--;
+  }
+
+}
+
+canvas.addEventListener('mousedown', (e) => {
+  isDrawing = true;
+  [lastX, lastY] = [e.offsetX, e.offsetY];
+});
+
+// fareyi hareket ettiğinde, draw() tetiklenir 
+// ve fırça hareketlerini takip ederek canvas üzerinde çizim yapar.
+canvas.addEventListener('mousemove', draw);
+// mouse tuşu serbest bırakıldığında isDrawing=false yapılır böylece canvas'a çizim yapılmaz
+canvas.addEventListener('mouseup', () => isDrawing = false);
+// mouseout olayı mouse çerçeveden çıktığında tetiklenir böylece canvas dışına çıkılıp geri gelindiğinde çizmeye devam etmez
+// bu olay dinlenmezse örneğin çizime başlanıp ctrl+tab ile başka bir sekmeye gidip geri gelindiğinde çizim işlemi devam eder
+canvas.addEventListener('mouseout', () => isDrawing = false);
+
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+</body>
+</html>
