@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+  <link rel="icon" href="https://fav.farm/✅" />
+</head>
+<body>
+
+  <p onClick="yesillendir()">Yeşillendir</p>
+
+  <script>
+    const dogs = [
+    { name: 'Karabaş', age: 2 }, 
+    { name: 'Çomar', age: 8 }
+    ];
+
+    function yesillendir() {
+      const p = document.querySelector('p');
+      p.style.color = 'green';
+      p.style.fontWeight= "bold";
+    }
+
+    // Regular
+    console.log('merhaba');
+
+    // Interpolated
+    // loglarken ekstra stringler eklemek için aşağıdaki yolları kullanabiliriz
+    console.log('Merhaba benim adım %s!', 'Furkan');
+    console.log('Merhaba benim adım '+ 'Furkan'+"!");
+    console.log(`Merhaba benim adım ${"Furkan"}!`);
+
+    // Styled
+    // %c ile logu stillendirebiliriz
+    console.log('%c Javascript 30 Gün 9!', 'font-size:24px; background:black;color:white ')
+
+    // warning!
+    console.warn('Uyarı!');
+
+    // Error 
+    console.error('HATA VAR!');
+
+    // Info
+    // bu şekilde "i" simgesiyle beraber log basılabilir
+    console.info('Crocodiles eat 3-4 people per year');
+
+    // Testing
+    const p = document.querySelector('p');
+    // aşağıdaki kod eğer p elemanı 'ouch' classına sahip DEĞİLSE "That is wrong" şeklinde bir hata fırlatır
+    console.assert(p.classList.contains('ouch'), 'That is wrong!');
+
+
+    // Viewing DOM Elements
+    // DOM elemanlarının sahip olduğu özellikleri görmek için console.dir kullanabiliriz
+    console.log(p);
+    console.dir(p);
+
+
+    // Grouping together
+    // Console group sayesinde logları gruplayabiliriz.
+    dogs.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`);
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+      console.groupEnd(`${dog.name}`);
+    });
+
+    // counting
+    // console.count ile logladığımız değeri kaç kere logladığımızı görebiliriz
+
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Furkan');
+    console.count('Furkan');
+    console.count('Wes');
+    console.count('Furkan');
+    console.count('Wes');
+    console.count('Furkan');
+    console.count('Furkan');
+    console.count('Furkan');
+    console.count('Furkan');
+    console.count('Furkan');
+
+    // timing
+    // console.time ile yapılan işlemin ne kadar sürdüğünü görebiliriz.
+    // örneğin aşağıdaki blokta fetch işleminin ne kadar sürdüğünü görebiliriz.
+    console.time('fetching data');
+    fetch('https://api.github.com/users/elbaley')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data');
+        console.log(data);
+      });
+
+    //array ve objeleri tablo şeklinde loglayabiliriz 
+    console.table(dogs);
+
+    // console.clear() ile console'u temizleyebiliriz. 
+    // console.clear();
+
+  </script>
+</body>
+</html>
