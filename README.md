@@ -13,3 +13,4 @@ In this repository, I am sharing my progress on the [Javascript 30 Challenge](ht
 - [x] Gün 7 - [Array Cardio Day 2](https://elbaley.github.io/js-30/07/index-solution.html)
 - [x] Gün 8 - [HTML5 Canvas](https://elbaley.github.io/js-30/08/index-solution.html)
 - [x] Gün 9 - [Dev Tools](https://elbaley.github.io/js-30/09/index-solution.html)
+- [x] Gün 10 - [Hold Shift to Check](https://elbaley.github.io/js-30/10/index-solution.html)
