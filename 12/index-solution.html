@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <link rel="icon" href="https://fav.farm/✅" />
+</head>
+<body>
+<h1>Gizli kelimeyi gir!</h1>    
+<script>
+    const secret = "merhaba"
+    const pressed = []
+
+    function checkSecret(e){
+      // basılan tuşu arrayin sonuna ekleyelim
+      pressed.push(e.key)
+
+      // arrayin uzunlugunu gizli kelimenin uzunlugu kadar sınırlandıralım ki gereksiz yere büyümesin
+      pressed.splice(-secret.length -1 , pressed.length - secret.length)
+
+
+      // arraydeki son 7 karakteri(çünkü gizli kelimemiz 7 karakter) alıp gizli kelime ile karşılaştıralım
+      const word = pressed.slice(-secret.length).join('')
+
+      if(word === secret){
+        // eğer girilen kelime gizli kelimeyse DOM'a bir h1 ekler
+        const message = document.createElement('h1')
+        message.innerText = "Gizli kelimeyi girdiniz! Tebrikler 👍!"
+        document.body.appendChild(message)
+      }
+
+    }
+
+    window.addEventListener("keyup",checkSecret)
+
+</script>
+</body>
+</html>
