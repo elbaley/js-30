@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Javascript Reference vs Copying</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="https://fav.farm/✅" />
+</head>
+
+<body>
+  <p>😎 Open up the console!</p>
+
+  <script>
+    // STRING KOPYALAMA 
+    let isim = 'Furkan';
+    let ikinciIsim = isim;
+
+    console.log(isim);//👉 Furkan
+    console.log(ikinciIsim);//👉 Furkan
+    // ikinciIsim değişkeninin değerini değiştirelim.
+    // isim değişkeni bu durumdan etkilenmeyecektir.
+    ikinciIsim = 'Didem';
+
+    console.log(isim);//👉 Furkan
+    console.log(ikinciIsim);//👉 Didem 
+
+    // ARRAY KOPYALAMA
+    const insanlar = ['Sabahattin Ali', 'Nazım Hikmet', 'Elif Şafak', 'Orhan Pamuk'];
+    // aşağıdaki yöntemle kopyalama işlemi yaparsak birinde yaptığımız değişiklik diğerini de etkiler
+    // const yazarlar = insanlar;
+
+    // 1. yöntem
+    // const yazarlar = insanlar.slice();
+
+    // 2. yöntem
+    //const yazarlar = [].concat(insanlar);
+
+    // 3. yöntem
+    const yazarlar = [...insanlar];
+
+    // üçüncü elemanı yazarlar arrayinde değiştirmeyi deneyelim
+    yazarlar[2] = 'Halide Edip Adıvar';
+    console.log(insanlar);
+    console.log(yazarlar);
+
+    // OBJECT KOPYALAMA
+    const universite = {
+      isim: 'ODTU',
+      il: 'Ankara',
+    }
+    // aşağıdaki yöntemle kopyalama yaparsak birinde yaptığımiz değişiklik diğerini de etkiler
+    // const yeniUniversite = universite
+
+    // 1. yöntem
+    // const yeniUniversite= Object.assign({},universite) 
+
+    // 2. yöntem
+    const yeniUniversite = {...universite};
+
+    yeniUniversite.isim = 'Hacettepe'
+    console.log(universite);
+    console.log(yeniUniversite);
+  </script>
+</body>
+
+</html>
