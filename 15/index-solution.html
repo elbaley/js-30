@@ -69,8 +69,10 @@
     function clearAll(){
       //localStorage'daki tüm verileri siliyoruz
       localStorage.setItem('items',JSON.stringify([]))
+      // urunleri sakladığımız listeyi sıfırlayalım (items=[] yapamayız çünkü const olarak başlattık)
+      items.length = 0;;
       // sildikten sonra tekrar fonksiyonumuz ile görünen listeyi güncelliyoruz
-      populateList([],itemsList);
+      populateList(items,itemsList);
     }
 
     // populateList fonksiyonu bir liste ve hedef element alıyor.
