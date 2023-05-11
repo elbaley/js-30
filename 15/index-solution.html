@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>LocalStorage</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <h2>SHOPPING LIST</h2>
+    <p></p>
+    <ul class="products">
+      <li>Loading shopping list...</li>
+    </ul>
+    <form class="add-items">
+      <button type="button" id="clear">Clear</button>
+      <input type="text" name="item" placeholder="Item Name" required>
+      <input type="submit" value="+ Add Item">
+    </form>
+  </div>
+
+  <script>
+    const addItems = document.querySelector('.add-items');
+    const itemsList = document.querySelector('.products');
+    // localStorage'dan items adlı değişkeni al, yoksa boş bir array oluştur
+    const items = JSON.parse(localStorage.getItem('items')) || [];
+    const clearButton = document.querySelector('#clear');
+
+    function addItem(e) {
+      // varsayılan olarak form gönderildiginde sayfa yenilenecektir bunu engelleyelim
+      e.preventDefault();
+      // inputa eklenen yeni elemanin değerini inputu seçip .value değerine bakarak alıyoruz
+      const text = (this.querySelector('[name=item]')).value;
+      // yeni alınacak ürün için bir obje oluşturuyoruz 
+      const item = {
+        text: text,
+        done: false
+      }
+
+      // oluşturduğumuz objeyi ürünleri sakladığımız array'e ekliyoruz.
+      items.push(item);
+      //Güncellenmiş listeyi göstermek için populateList fonksiyonunu çağırıyoruz
+      populateList(items, itemsList);
+      // Güncellenmiş items dizisini localStorage'a kaydediyoruz
+      localStorage.setItem('items', JSON.stringify(items));
+      // formu sıfırlayalım 
+      this.reset();
+    }
+
+    function toggleDone(e) {
+      //Tıklanan element input değilse fonksiyondan çıkıyoruz
+      if (!e.target.matches('input')) return;
+      const el = e.target;
+      // Tıklanan öğenin 'data-index' özelliğinden hangi öğe olduğunu belirliyoruz
+      const index = el.dataset.index
+      // Seçilen öğenin 'done' özelliğini tersine çeviriyoruz
+      items[index].done = !items[index].done;
+      // Güncellenmiş items dizisini localStorage'a kaydediyoruz
+      localStorage.setItem('items', JSON.stringify(items));
+      // Güncellenmiş listeyi göstermek için populateList fonksiyonunu çağırıyoruz
+      populateList(items, itemsList);
+      
+    }
+
+    function clearAll(){
+      //localStorage'daki tüm verileri siliyoruz
+      localStorage.setItem('items',JSON.stringify([]))
+      // sildikten sonra tekrar fonksiyonumuz ile görünen listeyi güncelliyoruz
+      populateList([],itemsList);
+    }
+
+    // populateList fonksiyonu bir liste ve hedef element alıyor.
+    // listedeki her bir obje için li ve input elementlerinden oluşan bir HTML hazırlıyor 
+    // son olarak hedef elementinin içindeki HTMLi güncelliyor
+    // böylece her bir ürün için sayfada li elementi oluşturuluyor
+    function populateList(list = [], element) {
+      element.innerHTML = list.map((item, i) => {
+        return `
+        <li>
+          <input type="checkbox" data-index=${i} id="item${i}" ${item.done ? 'checked' : ''}>
+          <label for="item${i}">${item.text}</label>
+        </li>
+        `
+      }).join('');
+    }
+
+
+
+    addItems.addEventListener('submit', addItem)
+    itemsList.addEventListener('click', toggleDone)
+    clearButton.addEventListener('click',clearAll) 
+    // sayfa yüklendiğinde öğeleri listele
+    populateList(items, itemsList);
+  </script>
+</body>
+</html>

@@ -18,3 +18,4 @@ In this repository, I am sharing my progress on the [Javascript 30 Challenge](ht
 - [x] Gün 12 - [Key Detection](https://elbaley.github.io/js-30/12/index-solution.html)
 - [x] Gün 13 - [Slide In Scroll](https://elbaley.github.io/js-30/13/index-solution.html)
 - [x] Gün 14 - [Reference and Copying](https://elbaley.github.io/js-30/14/index-solution.html)
+- [x] Gün 15 - [LocalStorage](https://elbaley.github.io/js-30/15/index-solution.html)
