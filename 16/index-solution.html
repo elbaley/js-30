@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Mouse Shadow</title>
+  <link rel="icon" href="https://fav.farm/✅" />
+</head>
+
+<body>
+
+  <div class="hero">
+    <h1>Hello!</h1>
+  </div>
+
+  <style>
+    html {
+      color: black;
+      font-family: sans-serif;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: black;
+    }
+
+    h1 {
+      text-shadow: 10px 10px 7px rgba(0, 0, 0, 0.2);
+      font-size: 100px;
+    }
+  </style>
+
+  <script>
+    const hero = document.querySelector('.hero');
+    const text = hero.querySelector('h1');
+    const move = 50; // 50px
+
+    function shadow(e) {
+      const {offsetWidth: width, offsetHeight: height} = hero;
+      let {offsetX: x, offsetY: y} = e;
+
+      // üzerine fareyle gelinen element hedefimiz olan hero elementi değilde içerisindeki
+      // h1 elementi olursa x,y değerlerine h1in offset değerlerini ekliyoruz böylece
+      // gölgenin pozisyonu doğru olmuş olacaktır.
+      if (this !== e.target) {
+        x = x + e.target.offsetLeft;
+        y = y + e.target.offsetTop;
+      }
+
+      // text-shadow özelliğinin konumunu hesaplayalım 
+      const xMove = Math.round((x / width * move) - (move / 2));
+      const yMove = Math.round((y / height * move) - (move / 2));
+
+      text.style.textShadow = `
+      ${xMove}px ${yMove}px 7px rgba(0,0,0,0.2)`;
+
+    }
+
+    hero.addEventListener('mousemove', shadow);
+  </script>
+</body>
+
+</html>
