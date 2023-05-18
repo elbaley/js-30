@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" href="https://fav.farm/✅" />
+</head>
+
+<body>
+
+  <h1 id="result">Location permission needed!</h1>
+
+  <style>
+    html {
+      font-size: 100px;
+    }
+
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background:
+        radial-gradient(black 15%, transparent 16%) 0 0,
+        radial-gradient(black 15%, transparent 16%) 8px 8px,
+        radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 0 1px,
+        radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 8px 9px;
+      background-color: #282828;
+      background-size: 16px 16px;
+      background-attachment: fixed;
+    }
+
+    .arrow {
+      width: 250px;
+      overflow: hidden;
+      transition: all 0.2s;
+      transform: rotate(0deg);
+      display: inline-block;
+    }
+
+    h1,
+    h2 {
+      color: white;
+      font-weight: 100;
+      font-size: 60px;
+      display: flex;
+      align-items: center;
+    }
+
+    h2 {
+      font-weight: bold
+    }
+
+    .units {
+      font-size: 15px;
+    }
+  </style>
+  <script>
+    const result = document.querySelector('#result');
+
+    navigator.geolocation.getCurrentPosition((data) => {
+      // enlem boylam bilgisini alalım 
+      const {latitude, longitude} = data.coords
+
+      // api'ya enlem/boylam bilgisiyla istek atalım ve
+      // kıta / ülke / sehir bilgisini alalım 
+      const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          // dönen veriden kıta/ ülke / sehir bilgisini çekelim
+          const {continent, city, countryName} = data
+
+          // dom'a yazılacak metni oluşturalım ve elementi h1 elementinden sonra ekleyelim
+          const resultStr = `${continent} - ${countryName} - ${city}`
+          const resultElement = document.createElement('h2')
+          resultElement.textContent = resultStr
+          result.after(resultElement)
+        })
+
+      console.log(data);
+    }, (err) => {
+      // hata olduğunda dom'a hata mesaji yazalım
+      const resultElement = document.createElement('h2')
+      resultElement.textContent = 'Could not find your location!'
+
+      result.after(resultElement)
+
+      console.error(err);
+
+      alert(err.message)
+    });
+
+
+  </script>
+</body>
+
+</html>
