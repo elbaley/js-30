@@ -23,3 +23,4 @@ In this repository, I am sharing my progress on the [Javascript 30 Challenge](ht
 - [x] Gün 17 - [Sort Without Articles](https://elbaley.github.io/js-30/17/index-solution.html)
 - [x] Gün 18 - [Adding Up Times](https://elbaley.github.io/js-30/18/index-solution.html)
 - [x] Gün 19 - [Webcam](https://elbaley.github.io/js-30/19/index-solution.html)
+- [x] Gün 20 - [Speech Recognition](https://elbaley.github.io/js-30/20/index-solution.html)
