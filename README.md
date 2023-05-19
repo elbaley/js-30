@@ -26,3 +26,4 @@ In this repository, I am sharing my progress on the [Javascript 30 Challenge](ht
 - [x] Gün 20 - [Speech Recognition](https://elbaley.github.io/js-30/20/index-solution.html)
 - [x] Gün 21 - [Geolocation API](https://elbaley.github.io/js-30/21/index-solution.html)
 - [x] Gün 22 - [Link Higlight](https://elbaley.github.io/js-30/22/index-solution.html)
+- [x] Gün 23 - [Text to Speech](https://elbaley.github.io/js-30/23/index-solution.html)
