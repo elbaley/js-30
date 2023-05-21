@@ -28,3 +28,4 @@ In this repository, I am sharing my progress on the [Javascript 30 Challenge](ht
 - [x] Gün 22 - [Link Higlight](https://elbaley.github.io/js-30/22/index-solution.html)
 - [x] Gün 23 - [Text to Speech](https://elbaley.github.io/js-30/23/index-solution.html)
 - [x] Gün 24 - [Sticky Nav](https://elbaley.github.io/js-30/24/index-solution.html)
+- [x] Gün 25 - [Event Bubbling, Propagation, Capture, Once](https://elbaley.github.io/js-30/25/index-solution.html)
