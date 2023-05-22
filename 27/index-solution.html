@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Click and Drag</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://fav.farm/✅" />
+</head>
+<body>
+  <div class="items">
+    <div class="item item1">01</div>
+    <div class="item item2">02</div>
+    <div class="item item3">03</div>
+    <div class="item item4">04</div>
+    <div class="item item5">05</div>
+    <div class="item item6">06</div>
+    <div class="item item7">07</div>
+    <div class="item item8">08</div>
+    <div class="item item9">09</div>
+    <div class="item item10">10</div>
+    <div class="item item11">11</div>
+    <div class="item item12">12</div>
+    <div class="item item13">13</div>
+    <div class="item item14">14</div>
+    <div class="item item15">15</div>
+    <div class="item item16">16</div>
+    <div class="item item17">17</div>
+    <div class="item item18">18</div>
+    <div class="item item19">19</div>
+    <div class="item item20">20</div>
+    <div class="item item21">21</div>
+    <div class="item item22">22</div>
+    <div class="item item23">23</div>
+    <div class="item item24">24</div>
+    <div class="item item25">25</div>
+  </div>
+
+<script>
+  // slider elementimizi seçelim
+  const slider = document.querySelector('.items');
+  /*
+  * Tıklama, sürükleme işlemleri sırasında kullanılacak değişkenleri oluşturalım.
+  * isDown : Farenin tıklanma durumunu belirtir. 
+  * startX : İlk tıklanan X kooardinatını kaydedeceğimiz değişkendir. Bu sayede slider'ı
+  * ne miktarda kaydırmamız gerektiğini belirleyebileceğiz. 
+  * scrollLeft: Mevcut kaydırma değerini saklayacağımız değişken olacak.
+  */
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  // Fareye tıklandığında
+  slider.addEventListener('mousedown', (e) => {
+    isDown = true;
+    // slider'a active sınıfını ekleyeceğiz bu sınıf div'in küçük bir miktar büyümesini
+    // ve işaretçinin el işaretine dönüşmesini sağlayacaktır.
+    slider.classList.add('active');
+
+    // tıklamaya tam olarak nereden başladığımızı kaydedelim.
+    startX = e.pageX - slider.offsetLeft;
+    // burada slider.offSetleft değerini çıkarıyoruz 
+    // çünkü slider sayfanın tam solundan başlamıyor bir miktar boşluk mevcut
+
+
+    // mevcut olarak ne kadar yana doğru kaydırıldığını kaydedelim.
+    scrollLeft = slider.scrollLeft;
+  });
+
+
+  // fare slider alanının dışına çıktığında
+  slider.addEventListener('mouseleave', () => {
+    isDown = false;
+    slider.classList.remove('active');
+  });
+
+  // fare tıklaması bırakıldığında
+  slider.addEventListener('mouseup', () => {
+    isDown = false;
+    slider.classList.remove('active');
+  });
+
+  // fare hareket ettiğinde (yani sürükleme işlemi gerçekleştiğinde)
+  slider.addEventListener('mousemove', (e) => {
+    if (!isDown) return;  // eğer fareye basılı tutulmuyorsa çalışmayı durdur
+    // fare hareket ettirildikten sonraki fare konumunu hesapla
+    const x = e.pageX - slider.offsetLeft;
+
+    // başlangıç konumu ile mevcut konum arasındaki farkı hesapla
+    // bunu 3 ile çarptığımızda her 1pixellik kaydırma için 3 pixel kaydırmış oluyoruz
+    const move = (x - startX) * 3 ;
+
+    // son olarak kaydırma işlemini gerçekleştir
+    slider.scrollLeft = scrollLeft - move;
+  });
+
+</script>
+
+</body>
+</html>

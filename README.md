@@ -30,3 +30,4 @@ In this repository, I am sharing my progress on the [Javascript 30 Challenge](ht
 - [x] Gün 24 - [Sticky Nav](https://elbaley.github.io/js-30/24/index-solution.html)
 - [x] Gün 25 - [Event Bubbling, Propagation, Capture, Once](https://elbaley.github.io/js-30/25/index-solution.html)
 - [x] Gün 26 - [Dropdown Menu](https://elbaley.github.io/js-30/26/index-solution.html)
+- [x] Gün 27 - [Click and Drag](https://elbaley.github.io/js-30/27/index-solution.html)
