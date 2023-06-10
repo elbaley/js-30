@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Speed Scrubber</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <video class="flex" width="765" height="430" src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" loop
+      controls></video>
+    <div class="speed">
+      <div class="speed-bar">1×</div>
+    </div>
+  </div>
+  <h2>Javascript 30 Day 28 Custom Video Speed Controller</h2>
+
+  <script>
+    const speed = document.querySelector('.speed')
+    const speedBar = document.querySelector('.speed-bar')
+    const video = document.querySelector('.flex')
+
+    let isDown = false;
+
+    function setPlaybackRate(e) {
+      // eğer fare tuşuna basılı değilse early return ile durdur
+      if (!isDown) return
+
+      const y = e.pageY - this.offsetTop
+      // speedbarın konumu ile yüzdeyi hesaplayalım
+      const speedPercent = y / this.offsetHeight
+
+      // minimum - maksimum hızları tanımlayalım
+      const minPercent = 0.25
+      const maxPercent = 5
+      const height = Math.round(speedPercent * 100) + '%'
+      // oynatma hızını minimum-maksimum hız aralığında olacak şekilde hesaplayalım
+      const playbackRate = speedPercent * (maxPercent - minPercent) + minPercent
+
+      // hız barının yüksekliğini ayarlayalım
+      speedBar.style.height = height
+      // güncel hız değerini yazdıralım
+      speedBar.textContent = playbackRate.toFixed(2) + "x"
+
+      //video oynatma hızını güncelleyelim
+      video.playbackRate = playbackRate
+    }
+
+    speed.addEventListener('mousemove',setPlaybackRate)
+
+    // fare tuşuna basıldığında / tuş bırakıldığında isDown değişkenini güncelleyelim
+    speed.addEventListener('mousedown', () => {
+      isDown = true
+    })
+    speed.addEventListener('mouseup', () => {
+      isDown = false
+    })
+  </script>
+</body>
+
+</html>
