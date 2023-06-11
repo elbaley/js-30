@@ -33,3 +33,4 @@ In this repository, I am sharing my progress on the [Javascript 30 Challenge](ht
 - [x] Day 27 - [Click and Drag](https://elbaley.github.io/js-30/27/index-solution.html)
 - [x] Day 28 - [Custom Video Speed](https://elbaley.github.io/js-30/28/index-solution.html)
 - [x] Day 29 - [Countdown](https://elbaley.github.io/js-30/29/index-solution.html)
+- [x] Day 30 - [Countdown](https://elbaley.github.io/js-30/30/index-solution.html)
